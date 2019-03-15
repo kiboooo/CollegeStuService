@@ -11,7 +11,7 @@
          http://www.springframework.org/schema/mvc
          http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"  >
 
-    <!-- ①：对com.springmvc包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <!-- ①：对com.css包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
     <context:component-scan base-package="com.css"/>
     <mvc:annotation-driven />
     <!-- 静态资源访问 -->
@@ -73,15 +73,33 @@
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
         <property name="password" value="${password}"/>
-        <property name="initialSize" value="1"/>
-        <property name="maxActive" value="100"/>
-        <property name="maxIdle" value="5"/>
-        <property name="maxWait" value="80000"/>
+        <property name="initialSize" value="${initialSize}"/>
+        <property name="maxActive" value="${maxActive}"/>
+        <property name="maxIdle" value="${maxIdle}"/>
+        <property name="maxWait" value="${maxWait}"/>
     </bean>
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 配置会话工厂SqlSessionFactory -->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:sqlmapper/*Mapper.xml"/>
+        <property name="typeAliasesPackage" value="com.css.entity" />
+    </bean>
+
+    <!-- 在spring容器中配置mapper的扫描器产生的动态代理对象在spring的容器中自动注册，
+    bean的id就是mapper类名（首字母小写）-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 指定扫描包的路径，就是mapper接口的路径，多个包中间以 半角逗号隔开   -->
+        <property name="basePackage" value="com.css.dao"/>
+        <!-- 配置sqlSessionFactoryBeanName -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
     <!-- 拦截器 -->
