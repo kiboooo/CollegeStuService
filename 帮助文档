@@ -8,3 +8,76 @@ push是遇见冲突情况，必须每个文件仔细查看，不明白的情况�
 切勿一键同步！！！
 切勿一键同步！！！
 切勿一键同步！！！
+
+接口描述：红色字体
+页面：
+一.个人中心
+1.个人信息展示页面（默认为主页）
+Interface PersonInfoMain{
+personInfoGet(int examNum,String idCard);
+personInfoShow();
+}
+2.个人信息修改页面
+Interface PersonInfoModify extend PersonInfoMain{
+personInfoPost();
+personInfoModify(int examNum,String idCard);
+}
+3.生源地信息展示页面
+Interface OrigininfoMain{
+origininfoGet(int birthID);
+origininfoShow();
+}
+4.生源地信息修改页面
+Interface OrigininfoModify extend OrigininfoMain{
+origininfoModify();
+origininfoPost(int birthID);
+}
+5.就业意向信息展示页面
+Interface EmployIntentionMain{
+employIntentionGet(int oeID);
+employIntentionShow();
+}
+6.就业意向信息修改页面
+Interface EmployIntentionModify extend EmployIntentionMain{
+employIntentionModify();
+employIntentionPost(int oeID);
+}
+7.就业信息展示页面
+Interface EmployInfoMain{
+employInfoGet(int eiID);
+employInfoShow();
+}
+8.就业信息修改页面
+Interface EmployInfoModify extend EmployInfoMain{
+employInfoModify();
+employInfoPost(int eiID);
+}
+9.招聘信息查询页面
+二.系统反馈
+1.系统反馈页面
+Interface SystemFeedback{
+systemInfoPost();
+}
+三.系统管理
+1.系统数据管理页面
+Interface SystemInfoManager{
+systemInfoGet();
+systemInfoPost();
+systemInfoModify();
+systemInfoShow();
+}
+2.用户数据管理（增删改查）
+Interface UserDataManager{
+addSingleUser();
+addGroupUsers();
+delUser((int examNum,String idCard);
+searchUser(int examNum,String idCard);
+modifyUser((int examNum,String idCard);
+}
+3.查看用户数据 
+4.编辑用户数据 
+5.添加用户数据（单个添加/表格导入）
+6.招聘信息数据管理（增删改查）
+7.查看招聘信息
+8.编辑招聘信息
+9.添加招聘信息
